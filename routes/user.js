@@ -22,6 +22,7 @@ router.post('/add',function(req,res){
                     if(err) throw err;
                     connection.query('SELECT * FROM user',function(err,rows){
                                 if(err) throw err;
+			         connection.release();
                     res.send('注册成功')
 
                     })
