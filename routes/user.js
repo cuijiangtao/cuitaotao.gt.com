@@ -22,15 +22,16 @@ router.post('/add',function(req,res){
                     if(err) throw err;
                     connection.query('SELECT * FROM user',function(err,rows){
                                 if(err) throw err;
-			         connection.release();
-                    res.send('注册成功')
+                           res.send({"message":'注册成功'});
+                     connection.release();
 
                     })
                 
                    
                 })
             }else {
-            res.send('用户名已被注册')
+            res.send({"message":'用户名已被注册'})
+                connection.release();
         }
             
         })
@@ -43,12 +44,12 @@ router.post('/dl',function(req,res){
         connection.query(`SELECT * FROM user WHERE user='${json1.user}' AND pass='${json1.pass}'`,function(err,rows){
             if(err) throw err;
             if(rows.length == 0){
-                 res.send('账号或者密码错误') 
+              res.send({"message":'账号或者密码错误'}) 
+                 connection.release();
              }else{
-                  res.send('登录成功')
+                res.send({"message":'登录成功'})
+                  connection.release();
              }
-            res.send(rows);
-            connection.release();
         })
     
     })
